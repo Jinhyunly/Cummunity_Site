@@ -7,10 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Welcome to hyunWorld (demo)!">
   <link rel="shortcut icon" th:href="@{/static/img/gift.png}">
+  <!--
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700,900&amp;subset=korean" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}"/>
+  -->
+  <link   th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"  rel="stylesheet" />
+  <link   th:href="@{https://cdn.jsdelivr.net/bootflat/2.0.0/css/bootflat.css}"               rel="stylesheet" />
+  <link   th:href="@{/static/styles/main.css}"                                                       rel="stylesheet" />
+  <link   th:href="@{/static/styles/jsl.css}"                                                        rel="stylesheet" />
+  <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js}"></script>
+  <script th:src="@{https://code.jquery.com/ui/1.11.4/jquery-ui.min.js}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js"></script>
+  <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+  <script th:src="@{/static/scripts/jquery.centerView.js}"></script>
+  <script th:src="@{/static/scripts/jquery.mask.js}"></script>
+  <script th:src="@{/static/scripts/common.js}"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css">
+  <!--<link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}"/>-->
 </th:block>
 
 <th:block th:fragment="f-footer">
@@ -65,31 +79,34 @@
 
 
 <!-- <body style="padding-top:100px;"> -->
-<body>
-<header>
-    <h1>
-      <a th:href="@{/v}"><img th:src="@{/static/img/like.png}" width="50" height="auto" alt="demo page" id="btn_home" /></a>
-    </h1>
-    <ul>
-      <li sec:authorize="isAuthenticated()">
-        <span sec:authentication="principal.username"></span> 님
-      </li>
-      <li><a th:href="@{/swagger-ui.html}" target="_blank"><img th:src="@{/static/img/swagger.png}" width="20" alt="swagger-ui page" id="btn-swagger" /></a></li>
-      <li><form id="logoutFrm" th:action="@{/logout}" method="post" style="display: inline-block;">
-          <a href="#" onclick="document.getElementById('logoutFrm').submit()" data-toggle="tooltip" data-placement="logout" title="Logout"><i class="fa fa-power-off"></i></a>
-        </form></li>
-    </ul>
-  </header>
+<body style="padding-top:100px;">
+  <!-- header -->
+  <nav class="navbar navbar-fixed-top navbar-jsl-blue" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <div class="navbar-brand navbar-text" style="color:#1B4A8C;font-size:30px;font-weight:bold;padding-top:20px;">LEE Board</div>
+      </div>
+      <div class="navbar-collapse collapse" sec:authorize="isAuthenticated()">
+        <form class="navbar-form navbar-right hidden-xs-inline" id="logoutFrm" th:action="@{/logout}" method="post" style="display: inline-block;">
+          <!-- <p class="navbar-text" style="color:#4f91e9;margin-top:25px;">로그인 담당자</p>  -->
+          <p class="navbar-text" style="color:#4f91e9;margin-top:25px;" sec:authentication="principal.username"></p>
+          <button class="btn btn-sm btn-primary navbar-btn" type="submit" style="margin-top:20px;"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;로그아웃</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
 
   <section layout:fragment="f-content"></section>
-  <footer>
+  <footer class="container">
     <p>
       LEE - DEMO
     </p>
   </footer>
-
+  <!--
   <th:block th:insert="cmm/block :: f-footer"></th:block>
   <th:block layout:fragment="f-script"></th:block>
+  -->
 </body>
 
 

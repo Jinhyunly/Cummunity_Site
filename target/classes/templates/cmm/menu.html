@@ -8,7 +8,7 @@
 	<title>
 		<th:block layout:fragment="f-title">demo</th:block>
 	</title>
-	<!-- <th:block th:insert="cmm/block :: f-header"></th:block> -->
+	<th:block th:insert="cmm/block :: f-header"></th:block> -->
 	<!--<th:block th:insert="cmm/base :: f-header"></th:block>-->
 
 </head>
@@ -30,35 +30,36 @@
 	</header>
 	 -->
 	 <section layout:fragment="f-content">
-	   <div class="col">
-		  <nav class="navbar navbar-expand-lg navbar-light" id="nav_area">
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_menu_area" style="margin: 3px;">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="nav_menu_area">
-					<ul class="navbar-nav flex-column" id="nav_menu" style="margin: 0 auto; width: 1140px;">
-						<li class='nav-item'  th:classappend="${currentPage eq 'home'} ? 'active' : ''" th:attr="data-href=@{/v}">홈</li>
-						<li sec:authorize="hasRole('ROLE_ADMIN')" class='nav-item' th:classappend="${currentPage eq 'user'} ? 'active' : ''" th:attr="data-href=@{/v/users}">회원</li>
-						<li class='nav-item' th:classappend="${currentPage eq 'store'} ? 'active' : ''" th:attr="data-href=@{/v/stores}">가맹점</li>
-					</ul>
-				</div>
-		  </nav>
-		</div>
-		<div class="container">
-		  <div class="d-title">
-		    <h2>thymeleaf tutorial 과정</h2>
-		  </div>
-		  <div class="d-content">
-		    <div class="row">
-		      <ul>
-		        <li>thymeleaf 관련 configuration 설정하기</li>
-		        <li>thymeleaf로 웹 페이지 구성하기</li>
-		        <li>JSP vs thymeleaf 비교하기</li>
-		        <li>thymeleaf layout 구성하기</li>
-		      </ul>
-		    </div>
-		  </div>
-		</div>
+	 <div class="col-md-4" style="width: 250px;">
+      <div class="panel">
+        <table class="table table-bordered table-hover table-condensed">
+          <thead>
+            <tr><th class="thin_blue"><h4>메뉴</h4></th></tr>
+          </thead>
+          <tbody>
+            <tr class="menu" th:classappend="${currentPage eq 'home'} ? 'active' : ''" data-href="/v" th:attr="data-href=@{/v}"><td class="cellLinkTd"><h4><a class="cellLink" href="/v">홈</a></h4></td></tr>
+            <tr class="menu" th:classappend="${currentPage eq 'store'} ? 'active' : ''" data-href="/v/stores" th:attr="data-href=@{/v/stores}"><td class="cellLinkTd"><h4><a class="cellLink" href="/v/stores">가맹점</a></h4></td></tr>
+            <tr class="menu" th:classappend="${currentPage eq 'user'} ? 'active' : ''" data-href="/v/users" th:attr="data-href=@{/v/users}"><td class="cellLinkTd"><h4><a class="cellLink" href="/v/users">가맹점</a></h4></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+		<div class="col-md-1"></div>
+    <div class="col-md-7"style="width: 600px;">
+      <div class="panel">
+        <div class="panel-heading thin_blue">
+          <div class="panel-title">
+            <h4><span style="color:#4f91e9;">お知らせ</span></h4>
+          </div>
+        </div>
+        <div class="panel-body"></div>
+          <div class="alert alert-success"  role="alert"><strong>Success</strong>：　XXXXからお知らせが届いています。</div>
+          <div class="alert alert-info"     role="alert"><strong>Info</strong>：　YYYYからお知らせが届いています。</div>
+          <div class="alert alert-warning"  role="alert"><strong>Warning</strong>：　ZZZZからお知らせが届いています。</div>
+          <div class="alert alert-danger"   role="alert"><strong>Danger</strong>：　AAAAからお知らせが届いています。</div>
+      </div>
+    </div>
 	</section>
 	<!--
 	<section layout:fragment="f-content"></section>
