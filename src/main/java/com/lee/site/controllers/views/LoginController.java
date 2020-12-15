@@ -2,7 +2,6 @@ package com.lee.site.controllers.views;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class LoginController {
-	
+
 	private final UserService userService;
-		
+
 	@GetMapping(value = "/")
 	public String index(@AuthenticationPrincipal SecurityUser securityUser){
 		if(securityUser != null) {
@@ -31,40 +30,40 @@ public class LoginController {
 		}
 		return "redirect:/login";
 	}
-	
+
 	@GetMapping(value = "/login")
 	public String login(@AuthenticationPrincipal SecurityUser securityUser){
 		if(securityUser != null && securityUser.getRoleTypes().contains(RoleType.ROLE_VIEW)) {
 			return "redirect:/v";
 		}
-		return "login/login";
+		return "login/login2";
 	}
-	
+
 	@RequestMapping(value = "/err/denied-page")
 	public String accessDenied(){
 		return "err/deniedPage";
 	}
-	
+
 	@GetMapping(value = "/join")
 	public String joinForm(@AuthenticationPrincipal SecurityUser securityUser){
 		if(securityUser != null && securityUser.getRoleTypes().contains(RoleType.ROLE_VIEW)) {
 			return "redirect:/v";
 		}
-		return "login/join";
+		return "login/join2";
 	}
-	
+
 	@ResponseBody
 	@PostMapping(value = "/join")
 	public Map<String, Object> join(@RequestBody UserValue value){
 		Map<String, Object> response = new HashMap<>();
-		
+
 		if(userService.findByEmail(value.getEmail()).isPresent()) {
 			response.put("duplicate", true);
 			return response;
 		}
-		
+
 		response.put("success", userService.join(value) != null ? true : false);
 		return response;
 	}
-	
+
 }
