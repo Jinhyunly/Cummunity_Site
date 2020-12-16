@@ -15,23 +15,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class VController {
-	
+
 	private final StoreService storeService;
 	private final UserService userService;
-	
+
 	@GetMapping("")
 	public String main(Model model) {
 		model.addAttribute("currentPage", "home");
-		return "content/main";
+		return "content/main2";
 	}
-	
+
 	@GetMapping("/users")
 	public String selectUsers(Model model, @PageableDefault(page=0, size=5, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
 		model.addAttribute("users", userService.findAll(pageable));
 		model.addAttribute("currentPage", "user");
 		return "content/user";
 	}
-	
+
 	@GetMapping("/stores")
 	public String selectStores(Model model, @PageableDefault(page=0, size=5, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
 		model.addAttribute("stores", storeService.findAll(pageable));

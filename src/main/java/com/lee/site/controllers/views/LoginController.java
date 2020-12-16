@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import com.lee.site.models.entities.SecurityUser;
 import com.lee.site.models.entities.UserRole.RoleType;
 import com.lee.site.models.values.UserValue;
@@ -32,11 +33,13 @@ public class LoginController {
 	}
 
 	@GetMapping(value = "/login")
-	public String login(@AuthenticationPrincipal SecurityUser securityUser){
+	public ModelAndView login(@AuthenticationPrincipal SecurityUser securityUser, ModelAndView mav){
 		if(securityUser != null && securityUser.getRoleTypes().contains(RoleType.ROLE_VIEW)) {
-			return "redirect:/v";
+		  mav.setViewName("/v");
+			return mav;
 		}
-		return "login/login2";
+		mav.setViewName("login/login2");
+		return mav;
 	}
 
 	@RequestMapping(value = "/err/denied-page")
