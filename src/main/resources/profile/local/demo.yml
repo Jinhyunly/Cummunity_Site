@@ -1,9 +1,0 @@
-demo:
-  api: /api/v1
-  url: 'http://localhost:${server.port}'
-  version: '@project.version@'
-  token:
-    typ: JWT
-    alg: HS256
-    api-key: lf2McyT3V5gDu2pNNm4VxmX3C2mezX21
-    secret-key: GYghbwpVZ4tZtbHu4Bdh8EBhAQj8EK21
