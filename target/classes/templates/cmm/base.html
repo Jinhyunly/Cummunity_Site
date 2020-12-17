@@ -96,12 +96,18 @@
     </div>
   </nav>
 
+  <!-- error -->
+  <!-- <div layout:fragment="errorMsg"></div> -->
 
+  <!-- contents -->
   <section layout:fragment="f-content"></section>
+
+  <!-- footer -->
   <footer class="container">
-    <p>
-      LEE - DEMO
-    </p>
+    <!-- <button type="submit" class="btn btn-primary btn-lg">閉じる</button> -->
+    <hr />
+    <div align="center" layout:fragment="footer">Copyright (C) 2020 李 Inc All Rights Reserved.</div>
+    <div layout:fragment="script"></div>  <!-- javascript is here -->
   </footer>
   <!--
   <th:block th:insert="cmm/block :: f-footer"></th:block>
