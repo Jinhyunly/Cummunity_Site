@@ -26,8 +26,8 @@ public class UserValue {
 	@Schema(description = "성별", defaultValue = "1", allowableValues = {"1", "2"})
 	private String sex;
 
-	@DateTimeFormat(pattern = "yyMMdd")
-	@Schema(description = "생년월일", example = "yyMMdd", maxLength = 6)
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@Schema(description = "생년월일", example = "yyyy/MM/dd", maxLength = 10)
 	private String birthDate;
 
 	@Schema(description = "전화번호")
@@ -35,5 +35,7 @@ public class UserValue {
 
 	@Schema(description = "비밀번호")
 	private String password;
+
+	private String confirmPassword;
 
 }

@@ -65,6 +65,10 @@ public class LoginController {
 			return response;
 		}
 
+		if(!value.getPassword().equals(value.getConfirmPassword())) {
+		  response.put("passwordFail", true);
+		}
+
 		response.put("success", userService.join(value) != null ? true : false);
 		return response;
 	}

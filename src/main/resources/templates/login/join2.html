@@ -13,8 +13,13 @@
         <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
         <title>Page Title - SB Admin</title>
         <link href="static/styles/bootstrap/dist/css/styles.css" rel="stylesheet" />
+        <link href="static/css/bootstrap-datepicker.css" rel="stylesheet" />
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js}"></script>
+        <link href="static/styles/bootstrap/dist/css/styles.css" rel="stylesheet" />
     </head>
     <body class="bg-primary" id="joinBody">
         <div id="layoutAuthentication">
@@ -30,20 +35,30 @@
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputFirstName">First Name</label>
-                                                        <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Enter first name" />
+                                                        <label class="small mb-1" for="name">Name</label>
+                                                        <input class="form-control py-4" name="name" id="name" type="text" placeholder="Enter name" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">Last Name</label>
-                                                        <input class="form-control py-4" id="inputLastName" type="text" placeholder="Enter last name" />
+                                                        <label class="small mb-1" for="">Birthday</label>
+                                                        <input class="form-control py-4" name="birthDate" id="birthDate" type="text" placeholder="Click Birthday" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputEmailAddress">Email</label>
                                                 <input class="form-control py-4" name="email" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-radio custom-control-inline">
+																				          <input type="radio" class="custom-control-input" id="sex-1" name="sex" value="1" checked>
+																				          <label class="custom-control-label" for="sex-1">male</label>
+																				        </div>
+																				        <div class="custom-control custom-radio custom-control-inline">
+																				          <input type="radio" class="custom-control-input" id="sex-2" name="sex" value="2">
+																				          <label class="custom-control-label" for="sex-2">female</label>
+																				        </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-6">
@@ -88,7 +103,9 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" th:src="@{/static/js/notify.min.js}"></script>
+        <script src="static/js/bootstrap-datepicker.js"></script>
         <script>
+
           $.fn.serializeObject = function() {
             var obj = null;
             try {
@@ -131,6 +148,11 @@
 					          $.notify("중복된 이메일 입니다.");
 					          $("input[name='email']").val("");
 					          $("input[name='email']").focus();
+					        } else if (res.passwordFail) {
+					        	$.notify("패스워드가 동일하지 않습니다.");
+					        	$("input[name='password']").val("");
+					        	$("input[name='confirmPassword']").val("");
+					        	$("input[name='password']").focus();
 					        } else if (res.success) {
 					          $.notify("회원 가입 완료되었습니다.");
 					          setTimeout(function() {window.location = document.referrer}, 800);
@@ -149,6 +171,24 @@
 					  $("#btn_loginForm").on("click", function() {
 					    location.href = document.referrer;
 					  });
+
+					  $("#birthDate").datepicker({
+						    format: "yyyy/mm/dd",
+						    changeYear : true,
+						    changeMonth: true
+						    //onClose    : function( selectedDate ) {
+					      //  $("#dateTo").datepicker("option", "minDate", selectedDate );
+					      //}
+						});
+
+					  //$.datepicker.setDefaults($.datepicker.regional["ja"]);
+					  //$("#birthday").datepicker({
+					    //changeYear : true,
+					    //changeMonth: true,
+					    //onClose    : function( selectedDate ) {
+					    //  $("#dateTo").datepicker("option", "minDate", selectedDate );
+					    //}
+					  //});
 
 					});
 				</script>
