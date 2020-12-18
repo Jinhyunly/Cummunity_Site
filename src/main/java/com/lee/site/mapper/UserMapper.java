@@ -10,4 +10,10 @@ public interface UserMapper {
 
 	@Select("SELECT * FROM user where id = #{id}")
 	public Optional<User> findById2(long id);
+
+	public User findById3(long id);
+
+	public User findByEmail(String email);
+
+	public void updatePassword(User user);
 }

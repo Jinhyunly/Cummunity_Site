@@ -129,6 +129,12 @@
 			<version>${io.jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- 메일 api -->
+		<dependency>
+		  <groupId>org.apache.commons</groupId>
+		  <artifactId>commons-email</artifactId>
+		  <version>1.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -2,6 +2,7 @@ package com.lee.site.controllers.views;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +72,18 @@ public class LoginController {
 
 		response.put("success", userService.join(value) != null ? true : false);
 		return response;
+	}
+
+	@GetMapping(value = "/searchPassword")
+  public String searchPassword(){
+
+    return "login/password";
+  }
+
+	@ResponseBody
+	@PostMapping(value = "/resetPassword")
+	public Map<String, Object> temporaryPassword(HttpServletResponse response, @RequestBody UserValue user) throws Exception {
+	  return userService.temporaryPassword(response, user);
 	}
 
 }

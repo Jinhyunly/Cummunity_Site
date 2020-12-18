@@ -5,4 +5,16 @@
 	<select id="findById" resultType="User" parameterType="Long">
 		SELECT * FROM user WHERE id = #{id}
 	</select>
+
+	<select id="findById3" resultType="User" parameterType="Long">
+    SELECT * FROM user WHERE id = #{id}
+  </select>
+
+	<select id="findByEmail" resultType="User" parameterType="string">
+    SELECT * FROM user WHERE email = #{email}
+  </select>
+
+	<select id="updatePassword" resultType="User" parameterType="User">
+    UPDATE user SET password = #{password} WHERE id = #{id}
+  </select>
 </mapper>
