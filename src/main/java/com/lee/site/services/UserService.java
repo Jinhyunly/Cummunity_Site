@@ -133,7 +133,6 @@ public class UserService {
   }
 
 	public void sendEmail(User user, String pw) throws Exception {
-	  SendUserInfo userInfo = new SendUserInfo();
 	  // Mail Server 설정
 	  String charSet = SendUserInfo.CHARSET;
 	  String hostSMTP = SendUserInfo.HOST_SMTP;
@@ -142,7 +141,7 @@ public class UserService {
 
 	  // 보내는 사람 EMail, 제목, 내용
 	  String fromEmail = SendUserInfo.HOST_SMTP_ID;
-	  String fromName = SendUserInfo.FROM_EMAIL;
+	  String fromName = SendUserInfo.FROM_NAME;
 	  String subject = SendUserInfo.SUBJECT;
 	  String msg = SendUserInfo.MSG;
 
