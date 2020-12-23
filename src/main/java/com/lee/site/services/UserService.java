@@ -53,7 +53,7 @@ public class UserService {
 		User user = userRepository.save(User.builder()
 				.type(value.getType())
 				.email(value.getEmail())
-				.birthDate(value.getBirthDate())
+				.birth_date(value.getBirthDate())
 				.name(value.getName())
 				.password(passwordEncoder.encode(value.getPassword()))
 				.phoneNumber(value.getPhoneNumber())
@@ -82,7 +82,7 @@ public class UserService {
 			if(StringUtils.isNotBlank(value.getEmail()))
 				user.setEmail(value.getEmail());
 			if(StringUtils.isNotBlank(value.getBirthDate()))
-				user.setBirthDate(value.getBirthDate());
+				user.setBirth_date(value.getBirthDate());
 			if(StringUtils.isNotBlank(value.getName()))
 				user.setName(value.getName());
 			if(StringUtils.isNotBlank(value.getPassword()))
@@ -120,7 +120,7 @@ public class UserService {
     return userMapper.findByEmail(email);
   }
 
-	public boolean updateUser(User user) {
+	public boolean updatePassUser(User user) {
     boolean successCheck = false;
 	  try {
 	    userMapper.updatePassword(user);
@@ -131,6 +131,27 @@ public class UserService {
 	  }
 	  return successCheck;
   }
+
+	public boolean updateUser(User user) {
+    boolean successCheck = false;
+    try {
+      userMapper.updateUser(user);
+      successCheck = true;
+    }catch(Exception e) {
+      e.printStackTrace();
+      successCheck = false;
+    }
+    return successCheck;
+  }
+
+	public boolean updateUserValue(UserValue userValue) {
+
+	  User user = findByEmailMapper(userValue.getEmail()); // 뭔가 부족한가 select 했을때 다 필드 다 안채워져있다 나중에 확인
+	  userValue.setPassword(passwordEncoder.encode(userValue.getPassword()));
+	  BeanUtils.copyProperties(userValue, user);
+
+	  return updateUser(user);
+	}
 
 	public void sendEmail(User user, String pw) throws Exception {
 	  // Mail Server 설정
@@ -196,12 +217,13 @@ public class UserService {
 	      pw += (char) ((Math.random() * 26) + 97);
 	    }
 	    searchedUser.setPassword(passwordEncoder.encode(pw)); //암호화
-	    UserValue userValue = new UserValue();
-	    BeanUtils.copyProperties(searchedUser, userValue);
+
+//	    UserValue userValue = new UserValue();
+//	    BeanUtils.copyProperties(searchedUser, userValue);
 
 	    // 비밀번호 변경
 	    //patch(searchedUser.getId(), userValue);
-	    if(!updateUser(searchedUser)) {
+	    if(!updatePassUser(searchedUser)) {
 	      //비밀번호 변경 실패
 	      responseMap.put("updateErr", true);
 	      return responseMap;

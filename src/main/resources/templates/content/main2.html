@@ -26,10 +26,11 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
+                <label class="" sec:authentication="principal.username" style="margin:0; color:white;"></label>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" sec:authorize="isAuthenticated()">
-                        <a class="dropdown-item" sec:authentication="principal.username">Settings</a>
+                        <a class="dropdown-item" href="user/update">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">Logout</a>

@@ -17,4 +17,13 @@
 	<select id="updatePassword" resultType="User" parameterType="User">
     UPDATE user SET password = #{password} WHERE id = #{id}
   </select>
+
+  <select id="updateUser" resultType="User" parameterType="User">
+    UPDATE user SET
+    name = #{name},
+    password = #{password},
+    sex = #{sex},
+    birth_date = #{birth_date}
+    WHERE id = #{id}
+  </select>
 </mapper>

@@ -43,7 +43,7 @@ public class User extends BaseEntity implements Serializable {
 	private String sex;
 
 	@Column(nullable = false, length = 10)
-	private String birthDate;
+	private String birth_date;
 
 	@Column(nullable = false, length = 20)
 	private String phoneNumber;
@@ -59,12 +59,12 @@ public class User extends BaseEntity implements Serializable {
 	private Set<UserRole> userRoles;
 
 	@Builder
-	public User(String type, String name, String email, String sex, String birthDate, String phoneNumber, String password) {
+	public User(String type, String name, String email, String sex, String birth_date, String phoneNumber, String password) {
 		this.type = type;
 		this.name = name;
 		this.email = email;
 		this.sex = sex;
-		this.birthDate = birthDate;
+		this.birth_date = birth_date;
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 	}

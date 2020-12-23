@@ -19,7 +19,6 @@
         <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js}"></script>
-        <link href="static/styles/bootstrap/dist/css/styles.css" rel="stylesheet" />
     </head>
     <body class="bg-primary" id="joinBody">
         <div id="layoutAuthentication">
@@ -29,34 +28,35 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4" sec:authorize="isAuthenticated()">Modify Account</h3></div>
                                     <div class="card-body">
-                                        <form method="post" th:action="@{/join}">
+                                        <form method="post" th:object="${user}" th:action="@{/user/update}">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                <br><label class="py-3" th:text="*{email}" id="inputEmailAddress" aria-describedby="emailHelp" ></label>
+                                                <input type="hidden" th:field="*{email}"/>
+                                            </div>
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="name">Name</label>
-                                                        <input class="form-control py-4" name="name" id="name" type="text" placeholder="Enter name" />
+                                                        <input class="form-control py-4" th:field="*{name}" type="text" placeholder="Enter name" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="">Birthday</label>
-                                                        <input class="form-control py-4" name="birthDate" id="birthDate" type="text" placeholder="Click Birthday" />
+                                                        <input class="form-control py-4" th:field="*{birth_date}" id="birth_date" type="text" placeholder="Click Birthday" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control py-4" name="email" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" required/>
-                                            </div>
-                                            <div class="form-group">
                                                 <div class="custom-control custom-radio custom-control-inline">
-																				          <input type="radio" class="custom-control-input" id="sex-1" name="sex" value="1" checked>
+																				          <input type="radio" class="custom-control-input" id="sex-1" name="sex" value="1" th:checked="${sexFlg}">
 																				          <label class="custom-control-label" for="sex-1">male</label>
 																				        </div>
 																				        <div class="custom-control custom-radio custom-control-inline">
-																				          <input type="radio" class="custom-control-input" id="sex-2" name="sex" value="2">
+																				          <input type="radio" class="custom-control-input" id="sex-2" name="sex" value="2" th:checked="!${sexFlg}">
 																				          <label class="custom-control-label" for="sex-2">female</label>
 																				        </div>
                                             </div>
@@ -74,11 +74,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group mt-4 mb-0"><button class="btn btn-primary btn-block">Create Account</button></div>
+                                            <div class="form-group mt-4 mb-0"><button class="btn btn-primary btn-block">Modify Account</button></div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <div class="small"><a href="/login">Have an account? Go to login</a></div>
+                                        <div class="small"><a href="javascript:history.back();">Go to back</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" th:src="@{/static/js/notify.min.js}"></script>
-        <script src="static/js/bootstrap-datepicker.js"></script>
+        <script src="/static/js/bootstrap-datepicker.js"></script>
         <script>
 
           $.fn.serializeObject = function() {
@@ -144,17 +144,13 @@
 					      },
 					      success : function(res) {
 					        $("#d-spin").remove();
-					        if (res.duplicate) {
-					          $.notify("중복된 이메일 입니다.");
-					          $("input[name='email']").val("");
-					          $("input[name='email']").focus();
-					        } else if (res.passwordFail) {
+					        if (res.passwordFail) {
 					        	$.notify("패스워드가 동일하지 않습니다.");
 					        	$("input[name='password']").val("");
 					        	$("input[name='confirmPassword']").val("");
 					        	$("input[name='password']").focus();
 					        } else if (res.success) {
-					          $.notify("회원 가입 완료되었습니다.");
+					          $.notify("회원 수정이 완료되었습니다.");
 					          setTimeout(function() {window.location = document.referrer}, 800);
 					        } else {
 					          $("#d-spin").hide();
@@ -172,7 +168,7 @@
 					    location.href = document.referrer;
 					  });
 
-					  $("#birthDate").datepicker({
+					  $("#birth_date").datepicker({
 						    format: "yyyy/mm/dd",
 						    changeYear : true,
 						    changeMonth: true
