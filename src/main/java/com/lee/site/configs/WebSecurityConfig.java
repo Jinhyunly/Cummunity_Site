@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 			.formLogin().loginPage("/login").defaultSuccessUrl("/v", true)
 			.usernameParameter("email").passwordParameter("password")
+			.failureUrl("/login?error=1")
 		.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
 			.invalidateHttpSession(true).deleteCookies("JSESSIONID")

@@ -13,7 +13,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand" href="/v">Start Bootstrap</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -26,7 +26,8 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
-                <label class="" sec:authentication="principal.username" style="margin:0; color:white;"></label>
+                <label class="" sec:authentication="principal.username" style="margin:0; color:white; padding:8px;"></label>
+                <label class="" style="margin:0; color:white; padding:8px 8px 8px 0px;">님</label>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" sec:authorize="isAuthenticated()">
@@ -116,15 +117,16 @@
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
+                            <div class="col-xl-3 col-md-6" th:each="beans,iterStat : ${noticeList}">
+                                <div class="card bg-primary text-white mb-4" th:classappend="${beans.info_color}">
+                                    <div class="card-body"><span style="word-break:break-all;" th:text="${beans.notice}"></span></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
+                            <!--
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">Warning Card</div>
@@ -152,6 +154,7 @@
                                     </div>
                                 </div>
                             </div>
+                             -->
                         </div>
                         <div class="row">
                             <div class="col-xl-6">

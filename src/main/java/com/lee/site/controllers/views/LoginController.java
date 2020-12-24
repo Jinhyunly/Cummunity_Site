@@ -2,6 +2,7 @@ package com.lee.site.controllers.views;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,15 @@ public class LoginController {
 	}
 
 	@GetMapping(value = "/login")
-	public ModelAndView login(@AuthenticationPrincipal SecurityUser securityUser, ModelAndView mav){
+	public ModelAndView login(@AuthenticationPrincipal SecurityUser securityUser, ModelAndView mav, HttpServletRequest request){
+	  String err = request.getParameter("error");
+    String errorMsg = "";
+
+    if (err != null && !err.isEmpty()) {
+      errorMsg = "입력정보가 불일치합니다. \n 재 로그인 부탁드립니다.";
+    }
+    mav.addObject("errorMessage", errorMsg);
+
 		if(securityUser != null && securityUser.getRoleTypes().contains(RoleType.ROLE_VIEW)) {
 		  mav.setViewName("/v");
 			return mav;
